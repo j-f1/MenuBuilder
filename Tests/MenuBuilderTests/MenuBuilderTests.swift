@@ -6,7 +6,11 @@ final class MenuBuilderTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(MenuBuilder().text, "Hello, World!")
+        let menu = NSMenu {
+            MenuItem("Hello, world!")
+        }
+        XCTAssertEqual(menu.items.count, 1)
+        XCTAssertEqual(menu.items[0].title, "Hello, world!")
     }
 
     static var allTests = [
