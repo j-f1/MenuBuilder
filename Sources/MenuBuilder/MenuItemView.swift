@@ -1,11 +1,14 @@
 import Cocoa
 import SwiftUI
 
+@available(macOS 10.15, *)
 extension EnvironmentValues {
     private struct HighlightedKey: EnvironmentKey {
         static let defaultValue = false
     }
 
+    /// Only updated inside of a `MenuItem(...).view { ... }` closure.
+    /// Use this to adjust your content to look good in front of the selection background
     public var menuItemIsHighlighted: Bool {
         get {
             return self[HighlightedKey.self]
@@ -16,6 +19,9 @@ extension EnvironmentValues {
     }
 }
 
+/// A custom menu item view that manages highlight state and renders
+/// an appropriate backdrop behind the view when highlighted
+@available(macOS 10.15, *)
 class MenuItemView<ContentView: View>: NSView {
     private var effectView: NSVisualEffectView
     let contentView: ContentView

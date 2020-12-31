@@ -8,9 +8,11 @@ final class MenuBuilderTests: XCTestCase {
         // results.
         let menu = NSMenu {
             MenuItem("Hello, world!")
+            SeparatorItem()
         }
-        XCTAssertEqual(menu.items.count, 1)
+        XCTAssertEqual(menu.items.count, 2)
         XCTAssertEqual(menu.items[0].title, "Hello, world!")
+        XCTAssertTrue(menu.items[1].isSeparatorItem)
     }
 
     static var allTests = [
