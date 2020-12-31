@@ -2,7 +2,7 @@
 
 A function builder for `NSMenu`s, similar in spirit to SwiftUI’s `ViewBuilder`.
 
-Usage example:
+Usage example (see demo for more details):
 
 ```swift
 let menu = NSMenu {
@@ -10,7 +10,7 @@ let menu = NSMenu {
     .onSelect { print("clicked!") } 
   MenuItem("Item with a view")
     .view {
-      MyMenuItemView()
+      MyMenuItemView() // any SwiftUI view
     }
   SeparatorItem()
   MenuItem("About") {
@@ -22,14 +22,6 @@ let menu = NSMenu {
     .shortcut("q")
     .onSelect { NSApp.terminate(nil) }
 }
-
-struct MyMenuItemView: View {
-  @State var value = 0.5
-  var body: some View {
-    HStack {
-      Slider(value: $value, in: 0...1)
-      Text("\(value)")
-    }
-  }
-}
 ```
+
+To update a menu, use `replaceItems(with:)`. Note that there is no way to preserve the existing menu items, although it should be possible to implement that — feel free to open an issue or PR adding update support if you want it!

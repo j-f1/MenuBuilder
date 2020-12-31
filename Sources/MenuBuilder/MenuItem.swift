@@ -32,7 +32,7 @@ public struct MenuItem {
 }
 
 extension MenuBuilder {
-    static func buildExpression(_ expr: MenuItem?) -> [NSMenuItem?] {
+    public static func buildExpression(_ expr: MenuItem?) -> [NSMenuItem?] {
         if let description = expr {
             let item = NSMenuItem()
             description.mutators.forEach { $0(item) }
@@ -44,11 +44,11 @@ extension MenuBuilder {
 }
 
 extension MenuItem {
-    init(_ title: String, @MenuBuilder children: @escaping () -> [NSMenuItem]) {
+    public init(_ title: String, @MenuBuilder children: @escaping () -> [NSMenuItem?]) {
         mutators = [{ item in
             item.title = title
             item.submenu = NSMenu(title: title)
-            item.submenu!.items = children()
+            item.submenu!.items = children().compactMap { $0 }
         }]
     }
 }
@@ -116,8 +116,8 @@ extension MenuItem {
     /// Any views inside a menu item can use the `menuItemIsHighlighted`
     /// environment value to alter its appearance when selected.
     @available(macOS 10.15, *)
-    public func view<Content: View>(@ViewBuilder _ content: @escaping () -> Content) -> Self {
-        view(MenuItemView(content()))
+    public func view<Content: View>(showsHighlight: Bool = true, @ViewBuilder _ content: @escaping () -> Content) -> Self {
+        view(MenuItemView(showsHighlight: showsHighlight, content()))
     }
     #endif
 

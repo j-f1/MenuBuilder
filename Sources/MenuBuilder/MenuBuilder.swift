@@ -3,23 +3,27 @@ import Cocoa
 /// A function builder type that produces an array of `NSMenuItem`s
 @_functionBuilder
 public struct MenuBuilder {
-    static func buildBlock(_ items: [NSMenuItem?]...) -> [NSMenuItem?] {
+    public static func buildBlock(_ items: [NSMenuItem?]...) -> [NSMenuItem?] {
         items.flatMap { $0 }
     }
 
-    static func buildExpression(_ expr: NSMenuItem?) -> [NSMenuItem?] {
-        return [expr]
+    public static func buildExpression(_ expr: NSMenuItem?) -> [NSMenuItem?] {
+        [expr]
     }
 
-    static func buildOptional(_ item: [NSMenuItem?]?) -> [NSMenuItem?] {
+    public static func buildOptional(_ item: [NSMenuItem?]?) -> [NSMenuItem?] {
         item ?? []
     }
 }
 
 extension NSMenu {
     /// Create a new menu with the given items
-    convenience init(@MenuBuilder _ items: () -> [NSMenuItem?]) {
+    public convenience init(@MenuBuilder _ items: () -> [NSMenuItem?]) {
         self.init()
+        self.replaceItems(with: items)
+    }
+
+    public func replaceItems(@MenuBuilder with items: () -> [NSMenuItem?]) {
         self.items = items().compactMap { $0 }
     }
 }

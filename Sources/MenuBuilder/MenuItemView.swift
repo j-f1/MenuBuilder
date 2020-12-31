@@ -26,8 +26,9 @@ class MenuItemView<ContentView: View>: NSView {
     private var effectView: NSVisualEffectView
     let contentView: ContentView
     let hostView: NSHostingView<AnyView>
+    let showsHighlight: Bool
 
-    init(_ view: ContentView) {
+    init(showsHighlight: Bool, _ view: ContentView) {
         effectView = NSVisualEffectView()
         effectView.state = .active
         effectView.material = .selection
@@ -36,6 +37,8 @@ class MenuItemView<ContentView: View>: NSView {
 
         contentView = view
         hostView = NSHostingView(rootView: AnyView(contentView))
+
+        self.showsHighlight = showsHighlight
 
         super.init(frame: CGRect(origin: .zero, size: hostView.intrinsicContentSize))
         addSubview(effectView)
@@ -59,7 +62,7 @@ class MenuItemView<ContentView: View>: NSView {
     }
     override func draw(_ dirtyRect: NSRect) {
         let highlighted = enclosingMenuItem!.isHighlighted
-        effectView.isHidden = !highlighted
+        effectView.isHidden = !showsHighlight || !highlighted
         hostView.rootView = AnyView(contentView.environment(\.menuItemIsHighlighted, highlighted))
         super.draw(dirtyRect)
     }
