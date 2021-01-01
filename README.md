@@ -22,9 +22,14 @@ let menu = NSMenu {
     .shortcut("q")
     .onSelect { NSApp.terminate(nil) }
 }
+
+// later, to replace the menu items with different/updated ones:
+menu.replaceItems {
+  MenuItem("Replaced item").onSelect { print("Hello!") }
+}
 ```
 
-To update a menu, use `replaceItems(with:)`. Note that there is no way to preserve the existing menu items, although it should be possible to implement that — feel free to open an issue or PR adding update support if you want it!
+Note that there is no way to preserve the existing menu items, although it should be possible to implement that — feel free to open an issue or PR adding update support if you want it!
 
 
 ## Contributing
