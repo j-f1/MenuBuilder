@@ -11,7 +11,6 @@ import SwiftUI
 
 class ViewController: NSViewController {
 
-    @IBOutlet weak var button: NSButton!
     var demoMenu: NSMenu!
 
     override func viewDidLoad() {
@@ -34,6 +33,7 @@ class ViewController: NSViewController {
                 .onSelect { NSApp.terminate(nil) }
         }
     }
+
     @IBAction func onClick(_ sender: NSButton) {
         demoMenu.popUp(
             positioning: nil,

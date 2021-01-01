@@ -25,3 +25,8 @@ let menu = NSMenu {
 ```
 
 To update a menu, use `replaceItems(with:)`. Note that there is no way to preserve the existing menu items, although it should be possible to implement that — feel free to open an issue or PR adding update support if you want it!
+
+
+## Contributing
+
+Open the `MenuBuilder.xcworkspace` to view the package and demo at the same time. PRs and issues are appreciated!
