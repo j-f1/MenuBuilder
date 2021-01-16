@@ -6,12 +6,12 @@ public struct SeparatorItem {
 }
 
 extension MenuBuilder {
-    public static func buildExpression(_ expr: SeparatorItem?) -> [NSMenuItem?] {
+    public static func buildExpression(_ expr: SeparatorItem?) -> [NSMenuItem] {
         if expr != nil {
             return [.separator()]
 
         }
-        return [nil]
+        return []
     }
 }
 

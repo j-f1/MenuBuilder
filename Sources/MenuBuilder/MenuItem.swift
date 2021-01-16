@@ -32,14 +32,14 @@ public struct MenuItem {
 }
 
 extension MenuBuilder {
-    public static func buildExpression(_ expr: MenuItem?) -> [NSMenuItem?] {
+    public static func buildExpression(_ expr: MenuItem?) -> [NSMenuItem] {
         if let description = expr {
             let item = NSMenuItem()
             description.mutators.forEach { $0(item) }
             return [item]
 
         }
-        return [nil]
+        return []
     }
 }
 
