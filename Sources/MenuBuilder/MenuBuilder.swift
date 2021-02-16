@@ -31,6 +31,10 @@ public struct MenuBuilder {
     public static func buildEither(second: [NSMenuItem]?) -> [NSMenuItem] {
         second ?? []
     }
+
+    public static func buildArray(_ components: [[NSMenuItem]]) -> [NSMenuItem] {
+        components.flatMap { $0 }
+    }
 }
 
 extension NSMenu {

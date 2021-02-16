@@ -31,6 +31,10 @@ class ViewController: NSViewController {
             MenuItem("Quit")
                 .shortcut("q")
                 .onSelect { NSApp.terminate(nil) }
+
+            for word in ["Hello", "World"] {
+                MenuItem(word)
+            }
         }
     }
 
