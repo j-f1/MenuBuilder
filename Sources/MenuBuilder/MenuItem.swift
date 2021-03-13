@@ -111,7 +111,7 @@ extension MenuItem {
     }
 
     #if canImport(SwiftUI)
-    /// Dissplay a custom SwiftUI view instead of the title or attributed title
+    /// Display a custom SwiftUI view instead of the title or attributed title
     /// Note that the passed closure will only be called once.
     /// Any views inside a menu item can use the `menuItemIsHighlighted`
     /// environment value to alter its appearance when selected.
