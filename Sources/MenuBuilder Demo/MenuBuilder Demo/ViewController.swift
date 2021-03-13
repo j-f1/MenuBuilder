@@ -31,10 +31,6 @@ class ViewController: NSViewController {
             MenuItem("Quit")
                 .shortcut("q")
                 .onSelect { NSApp.terminate(nil) }
-
-            for word in ["Hello", "World"] {
-                MenuItem(word)
-            }
         }
     }
 
@@ -51,7 +47,7 @@ struct MyMenuItemView: View {
     var body: some View {
         HStack {
             Slider(value: $value, in: 0...9, step: 1)
-            Text("Value: \(Int(value))").font(Font.body.monospacedDigit())
+            Text("Value: \(value)").font(Font.body.monospacedDigit())
         }
         .padding(.horizontal)
         .frame(minWidth: 250)
