@@ -31,11 +31,11 @@ class ViewController: NSViewController {
             MenuItem("Quit")
                 .shortcut("q")
                 .onSelect { NSApp.terminate(nil) }
+            // Uncomment once Xcode 12.5 becomes available
+            // for word in ["Hello", "World"] {
+            //     MenuItem(word)
+            // }
         }
-        // Uncomment once Xcode 12.5 becomes available
-        // for word in ["Hello", "World"] {
-        //     MenuItem(word)
-        // }
     }
 
     @IBAction func onClick(_ sender: NSButton) {
