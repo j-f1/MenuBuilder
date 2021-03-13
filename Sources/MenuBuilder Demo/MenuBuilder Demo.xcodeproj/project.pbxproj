@@ -287,7 +287,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MenuBuilder Demo/MenuBuilder_Demo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 288H3WAR3W;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "MenuBuilder Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -308,7 +308,7 @@
 				CODE_SIGN_ENTITLEMENTS = "MenuBuilder Demo/MenuBuilder_Demo.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 288H3WAR3W;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "MenuBuilder Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
