@@ -5,6 +5,6 @@ class MenuInvoker {
     static let shared = MenuInvoker()
     private init() {}
     @objc func run(_ item: NSMenuItem) {
-        (item.representedObject as! () -> ())()
+        (item.representedObject as? () -> Void)?()
     }
 }
