@@ -8,17 +8,11 @@ public struct MenuBuilder {
     }
 
     public static func buildExpression(_ expr: [NSMenuItem]?) -> [NSMenuItem] {
-        if let expr = expr {
-            return expr
-        }
-        return []
+        expr ?? []
     }
 
     public static func buildExpression(_ expr: NSMenuItem?) -> [NSMenuItem] {
-        if let expr = expr {
-            return [expr]
-        }
-        return []
+        expr.map{[$0]} ?? []
     }
 
     public static func buildOptional(_ item: [NSMenuItem]?) -> [NSMenuItem] {
