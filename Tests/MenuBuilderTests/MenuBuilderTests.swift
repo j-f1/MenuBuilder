@@ -9,10 +9,19 @@ final class MenuBuilderTests: XCTestCase {
         let menu = NSMenu {
             MenuItem("Hello, world!")
             SeparatorItem()
+            MenuItem("Title")
+            IndentGroup {
+                MenuItem("Item 1")
+                IndentGroup {
+                    MenuItem("Item 2")
+                }
+                MenuItem("Item 3")
+            }
         }
-        XCTAssertEqual(menu.items.count, 2)
+        XCTAssertEqual(menu.items.count, 6)
         XCTAssertEqual(menu.items[0].title, "Hello, world!")
         XCTAssertTrue(menu.items[1].isSeparatorItem)
+        XCTAssertEqual(menu.items.map(\.indentationLevel), [0, 0, 0, 1, 2, 1])
     }
 
     static var allTests = [
