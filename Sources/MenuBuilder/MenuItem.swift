@@ -32,6 +32,8 @@ public struct MenuItem {
         }]
     }
 
+    /// Set an arbitrary `keyPath` on the menu item to a value of your choice.
+    /// Most of the other modifiers are just sugar wrapping this.
     public func set<Value>(_ keyPath: WritableKeyPath<NSMenuItem, Value>, to value: Value) -> Self {
         apply {
             // hack to allow writing to the menu item, which works since NSMenuItem is a reference type
