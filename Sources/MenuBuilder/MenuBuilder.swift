@@ -7,14 +7,6 @@ public struct MenuBuilder {
         block.flatMap { $0 }
     }
 
-    public static func buildExpression(_ expr: [NSMenuItem]?) -> [NSMenuItem] {
-        expr ?? []
-    }
-
-    public static func buildExpression(_ expr: NSMenuItem?) -> [NSMenuItem] {
-        expr.map{[$0]} ?? []
-    }
-
     public static func buildOptional(_ item: [NSMenuItem]?) -> [NSMenuItem] {
         item ?? []
     }
@@ -28,6 +20,14 @@ public struct MenuBuilder {
 
     public static func buildArray(_ components: [[NSMenuItem]]) -> [NSMenuItem] {
         components.flatMap { $0 }
+    }
+
+    public static func buildExpression(_ expr: [NSMenuItem]?) -> [NSMenuItem] {
+        expr ?? []
+    }
+
+    public static func buildExpression(_ expr: NSMenuItem?) -> [NSMenuItem] {
+        expr.map { [$0] } ?? []
     }
 }
 
