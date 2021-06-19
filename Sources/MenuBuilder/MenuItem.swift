@@ -72,10 +72,10 @@ extension MenuItem {
 
     /// Run a closure when the menu item is selected
     public func onSelect(_ handler: @escaping () -> ()) -> Self {
-        apply { item in
-            item.representedObject = handler
-            item.target = MenuInvoker.shared
-            item.action = #selector(MenuInvoker.run(_:))
+        apply {
+            $0.representedObject = handler
+            $0.target = MenuInvoker.shared
+            $0.action = #selector(MenuInvoker.run(_:))
         }
     }
 
