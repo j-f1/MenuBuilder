@@ -3,61 +3,41 @@ import Cocoa
 import SwiftUI
 #endif
 
-/// A standard menu item
-public struct MenuItem {
-    public typealias Mutator = (NSMenuItem) -> ()
+public protocol AnyMenuItem {
+    associatedtype Item: NSMenuItem
+    func apply(_ modifier: @escaping (Item) -> ()) -> Self
+}
 
+/// A standard menu item
+public struct MenuItem: AnyMenuItem {
+    public typealias Modifier = (NSMenuItem) -> ()
     /// An array of functions that configure the menu item instance
     /// These may be called to update an existing menu item.
-    fileprivate let mutators: [Mutator]
+    fileprivate let modifiers: [Modifier]
 
     /// Calls the provided closure on the `NSMenuItem`, allowing you to apply arbitrary changes.
-    public func apply(_ mutator: @escaping Mutator) -> Self {
-        Self(mutators: mutators + [mutator])
+    public func apply(_ modifier: @escaping Modifier) -> Self {
+        Self(modifiers: modifiers + [modifier])
     }
-    private init(mutators: [Mutator]) {
-        self.mutators = mutators
+    private init(modifiers: [Modifier]) {
+        self.modifiers = modifiers
     }
 
     /// Create a menu item with the given title
     public init(_ title: String) {
-        mutators = [{ item in item.title = title }]
+        modifiers = [{ item in item.title = title }]
     }
 
     /// Create a menu item with the given attributed title
     public init(_ title: NSAttributedString) {
-        mutators = [{ item in
+        modifiers = [{ item in
             item.title = title.string
             item.attributedTitle = title
         }]
     }
 
-    /// Set an arbitrary `keyPath` on the menu item to a value of your choice.
-    /// Most of the other modifiers are just sugar wrapping this.
-    public func set<Value>(_ keyPath: WritableKeyPath<NSMenuItem, Value>, to value: Value) -> Self {
-        apply {
-            // hack to allow writing to the menu item, which works since NSMenuItem is a reference type
-            var menuItem = $0
-            menuItem[keyPath: keyPath] = value
-        }
-    }
-}
-
-extension MenuBuilder {
-    public static func buildExpression(_ expr: MenuItem?) -> [NSMenuItem] {
-        if let description = expr {
-            let item = NSMenuItem()
-            description.mutators.forEach { $0(item) }
-            return [item]
-
-        }
-        return []
-    }
-}
-
-extension MenuItem {
     public init(_ title: String, @MenuBuilder children: @escaping () -> [NSMenuItem?]) {
-        mutators = [{ item in
+        modifiers = [{ item in
             item.title = title
             item.submenu = NSMenu(title: title)
             item.submenu!.items = children().compactMap { $0 }
@@ -65,7 +45,57 @@ extension MenuItem {
     }
 }
 
-extension MenuItem {
+public struct CustomMenuItem<Item: NSMenuItem>: AnyMenuItem {
+    public typealias Modifier = (Item) -> ()
+
+    fileprivate let makeMenu: () -> Item
+    fileprivate let modifiers: [Modifier]
+
+    public init(_ makeMenu: @autoclosure @escaping () -> Item) {
+        self.makeMenu = makeMenu
+        self.modifiers = []
+    }
+
+    /// Calls the provided closure on the `NSMenuItem`, allowing you to apply arbitrary changes.
+    public func apply(_ modifier: @escaping Modifier) -> Self {
+        Self(makeMenu: makeMenu, modifiers: modifiers + [modifier])
+    }
+    private init(makeMenu: @escaping () -> Item, modifiers: [Modifier]) {
+        self.makeMenu = makeMenu
+        self.modifiers = modifiers
+    }
+}
+
+extension MenuBuilder {
+    public static func buildExpression(_ expr: MenuItem?) -> [NSMenuItem] {
+        if let description = expr {
+            let item = NSMenuItem()
+            description.modifiers.forEach { $0(item) }
+            return [item]
+        }
+        return []
+    }
+    public static func buildExpression<T: NSMenuItem>(_ expr: CustomMenuItem<T>?) -> [NSMenuItem] {
+        if let description = expr {
+            let item = description.makeMenu()
+            description.modifiers.forEach { $0(item) }
+            return [item]
+        }
+        return []
+    }
+}
+
+extension AnyMenuItem {
+    /// Set an arbitrary `keyPath` on the menu item to a value of your choice.
+    /// Most of the other modifiers are just sugar wrapping this.
+    public func set<Value>(_ keyPath: WritableKeyPath<Item, Value>, to value: Value) -> Self {
+        apply {
+            // hack to allow writing to the menu item, which works since NSMenuItem is a reference type
+            var menuItem = $0
+            menuItem[keyPath: keyPath] = value
+        }
+    }
+
     /// Set the key equivalent (i.e. `.shortcut("c")` for ⌘C)
     public func shortcut(_ shortcut: String, holding modifiers: NSEvent.ModifierFlags = .command) -> Self {
         apply {
@@ -99,7 +129,6 @@ extension MenuItem {
     public func image(_ image: NSImage) -> Self {
         set(\.image, to: image)
     }
-
 
     /// Set the on/off/mixed-state-specific image
     public func image(_ image: NSImage, for state: NSControl.StateValue) -> Self {
