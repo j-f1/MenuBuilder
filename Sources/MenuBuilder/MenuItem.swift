@@ -29,6 +29,14 @@ public struct MenuItem {
             item.attributedTitle = title
         }]
     }
+
+    public func set<Value>(_ keyPath: WritableKeyPath<NSMenuItem, Value>, to value: Value) -> Self {
+        withMutations {
+            // hack to allow writing to the menu item, which works since NSMenuItem is a reference type
+            var menuItem = $0
+            menuItem[keyPath: keyPath] = value
+        }
+    }
 }
 
 extension MenuBuilder {
@@ -75,17 +83,17 @@ extension MenuItem {
     /// NOTE: menu items can only be enabled if they have a select handler or a submenu
     /// so `MenuItem("hello")` will always be disabled
     public func disabled(_ disabled: Bool = true) -> Self {
-        withMutations { $0.isEnabled = !disabled }
+        set(\.isEnabled, to: !disabled)
     }
 
     /// Set the checked/unchecked state
     public func state(_ state: NSControl.StateValue) -> Self {
-        withMutations { $0.state = state }
+        set(\.state, to: state)
     }
 
     /// Set the image associated with this menu item, no matter the state
     public func image(_ image: NSImage) -> Self {
-        withMutations { $0.image = image }
+        set(\.image, to: image)
     }
 
 
@@ -103,12 +111,12 @@ extension MenuItem {
 
     /// Indent the menu item to the given level
     public func indent(level: Int) -> Self {
-        withMutations { $0.indentationLevel = level }
+        set(\.indentationLevel, to: level)
     }
 
     /// Set the tooltip displayed when hovering over the menu item
     public func toolTip(_ toolTip: String) -> Self {
-        withMutations { $0.toolTip = toolTip }
+        set(\.toolTip, to: toolTip)
     }
 
     #if canImport(SwiftUI)
@@ -124,8 +132,6 @@ extension MenuItem {
 
     /// Dissplay a custom NSView instead of the title or attributed title
     public func view(_ view: NSView) -> Self {
-        withMutations {
-            $0.view = view
-        }
+        set(\.view, to: view)
     }
 }
