@@ -1,7 +1,7 @@
 import Cocoa
 
 /// A function builder type that produces an array of `NSMenuItem`s
-@_functionBuilder
+@resultBuilder
 public struct MenuBuilder {
     public static func buildBlock(_ block: [NSMenuItem]...) -> [NSMenuItem] {
         block.flatMap { $0 }
