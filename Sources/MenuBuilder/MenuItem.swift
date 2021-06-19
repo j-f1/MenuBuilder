@@ -56,8 +56,9 @@ extension MenuItem {
 extension MenuItem {
     /// Set the key equivalent (i.e. `.shortcut("c")` for ⌘C)
     public func shortcut(_ shortcut: String, holding modifiers: NSEvent.ModifierFlags = .command) -> Self {
-        withMutations { item in
-            item.keyEquivalent = shortcut
+        withMutations {
+            $0.keyEquivalent = shortcut
+            $0.keyEquivalentModifierMask = modifiers
         }
     }
 
