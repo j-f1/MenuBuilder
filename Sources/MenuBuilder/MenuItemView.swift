@@ -1,3 +1,4 @@
+#if canImport(SwiftUI)
 import Cocoa
 import SwiftUI
 
@@ -67,3 +68,4 @@ class MenuItemView<ContentView: View>: NSView {
         super.draw(dirtyRect)
     }
 }
+#endif
