@@ -5,15 +5,17 @@ import SwiftUI
 
 /// A standard menu item
 public struct MenuItem {
+    public typealias Mutator = (NSMenuItem) -> ()
+
     /// An array of functions that configure the menu item instance
     /// These may be called to update an existing menu item.
-    let mutators: [(NSMenuItem) -> ()]
+    fileprivate let mutators: [Mutator]
 
     /// Calls the provided closure on the `NSMenuItem`, allowing you to apply arbitrary changes.
-    public func apply(_ mutator: @escaping (NSMenuItem) -> ()) -> Self {
+    public func apply(_ mutator: @escaping Mutator) -> Self {
         Self(mutators: mutators + [mutator])
     }
-    private init(mutators: [(NSMenuItem) -> ()]) {
+    private init(mutators: [Mutator]) {
         self.mutators = mutators
     }
 
