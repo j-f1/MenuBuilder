@@ -9,8 +9,8 @@ public struct MenuItem {
     /// These may be called to update an existing menu item.
     let mutators: [(NSMenuItem) -> ()]
 
-    /// A helper function that returns a new `MenuItem` with the given `mutator` added
-    private func withMutations(_ mutator: @escaping (NSMenuItem) -> ()) -> Self {
+    /// Calls the provided closure on the `NSMenuItem`, allowing you to apply arbitrary changes.
+    public func apply(_ mutator: @escaping (NSMenuItem) -> ()) -> Self {
         Self(mutators: mutators + [mutator])
     }
     private init(mutators: [(NSMenuItem) -> ()]) {
@@ -31,7 +31,7 @@ public struct MenuItem {
     }
 
     public func set<Value>(_ keyPath: WritableKeyPath<NSMenuItem, Value>, to value: Value) -> Self {
-        withMutations {
+        apply {
             // hack to allow writing to the menu item, which works since NSMenuItem is a reference type
             var menuItem = $0
             menuItem[keyPath: keyPath] = value
@@ -64,7 +64,7 @@ extension MenuItem {
 extension MenuItem {
     /// Set the key equivalent (i.e. `.shortcut("c")` for ⌘C)
     public func shortcut(_ shortcut: String, holding modifiers: NSEvent.ModifierFlags = .command) -> Self {
-        withMutations {
+        apply {
             $0.keyEquivalent = shortcut
             $0.keyEquivalentModifierMask = modifiers
         }
@@ -72,7 +72,7 @@ extension MenuItem {
 
     /// Run a closure when the menu item is selected
     public func onSelect(_ handler: @escaping () -> ()) -> Self {
-        withMutations { item in
+        apply { item in
             item.representedObject = handler
             item.target = MenuInvoker.shared
             item.action = #selector(MenuInvoker.run(_:))
@@ -99,7 +99,7 @@ extension MenuItem {
 
     /// Set the on/off/mixed-state-specific image
     public func image(_ image: NSImage, for state: NSControl.StateValue) -> Self {
-        withMutations { item in
+        apply { item in
             switch state {
             case .off: item.offStateImage = image
             case .on: item.onStateImage = image
