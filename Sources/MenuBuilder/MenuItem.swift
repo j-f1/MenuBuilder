@@ -88,11 +88,9 @@ extension MenuBuilder {
 extension AnyMenuItem {
     /// Set an arbitrary `keyPath` on the menu item to a value of your choice.
     /// Most of the other modifiers are just sugar wrapping this.
-    public func set<Value>(_ keyPath: WritableKeyPath<Item, Value>, to value: Value) -> Self {
+    public func set<Value>(_ keyPath: ReferenceWritableKeyPath<Item, Value>, to value: Value) -> Self {
         apply {
-            // hack to allow writing to the menu item, which works since NSMenuItem is a reference type
-            var menuItem = $0
-            menuItem[keyPath: keyPath] = value
+            $0[keyPath: keyPath] = value
         }
     }
 
