@@ -1,6 +1,17 @@
 import Cocoa
 
-/// A menu item made from a custom subclass of `NSMenuItem`
+/// A menu item made from a custom subclass of `NSMenuItem`.
+///
+/// Pass a closure to the ``CustomMenuItem/init(_:)`` initializer that returns a menu item of your desired class, or simply construct the menu item directly:
+/// ```swift
+/// CustomMenuItem {
+///   let item = MyDelegateMenuItem()
+///   item.delegate = self
+///   return item
+/// }
+/// // or:
+/// CustomMenuItem(MySimpleMenuItem())
+/// ```
 public struct CustomMenuItem<Item: NSMenuItem>: AnyMenuItem {
   public typealias Modifier = (Item) -> ()
 

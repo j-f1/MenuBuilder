@@ -3,7 +3,7 @@ import Cocoa
 import SwiftUI
 #endif
 
-/// Modifiers used to customize a menu item.
+/// Modifiers used to customize a ``MenuItem`` or ``CustomMenuItem``.
 public protocol AnyMenuItem {
   associatedtype Item: NSMenuItem
   func apply(_ modifier: @escaping (Item) -> ()) -> Self
@@ -18,7 +18,7 @@ extension AnyMenuItem {
     }
   }
 
-  /// Set the key equivalent (i.e. `.shortcut("c")` for ⌘C)
+  /// Sets the keyboard shortcut/key equivalent.
   public func shortcut(_ shortcut: String, holding modifiers: NSEvent.ModifierFlags = .command) -> Self {
     apply {
       $0.keyEquivalent = shortcut
@@ -26,7 +26,7 @@ extension AnyMenuItem {
     }
   }
 
-  /// Run a closure when the menu item is selected
+  /// Runs a closure when the menu item is selected.
   public func onSelect(_ handler: @escaping () -> ()) -> Self {
     apply {
       $0.representedObject = handler
@@ -35,24 +35,24 @@ extension AnyMenuItem {
     }
   }
 
-  /// disable or enable the menu item.
-  /// NOTE: menu items can only be enabled if they have a select handler or a submenu
-  /// so `MenuItem("hello")` will always be disabled
+  /// Disables the menu item.
+  ///
+  /// Menu items without a `onSelect` handler or submenu are always disabled.
   public func disabled(_ disabled: Bool = true) -> Self {
     set(\.isEnabled, to: !disabled)
   }
 
-  /// Set the checked/unchecked state
+  /// Sets the checked/unchecked/mixed state
   public func state(_ state: NSControl.StateValue) -> Self {
     set(\.state, to: state)
   }
 
-  /// Set the image associated with this menu item, no matter the state
+  /// Sets the image associated with this menu item
   public func image(_ image: NSImage) -> Self {
     set(\.image, to: image)
   }
 
-  /// Set the on/off/mixed-state-specific image
+  /// Sets an on/off/mixed-state-specific image
   public func image(_ image: NSImage, for state: NSControl.StateValue) -> Self {
     apply { item in
       switch state {
@@ -69,13 +69,13 @@ extension AnyMenuItem {
     set(\.indentationLevel, to: level)
   }
 
-  /// Set the tooltip displayed when hovering over the menu item
+  /// Set the tooltip displayed when hovering over the menu item.
   public func toolTip(_ toolTip: String) -> Self {
     set(\.toolTip, to: toolTip)
   }
 
 #if canImport(SwiftUI)
-  /// Display a custom SwiftUI view instead of the title or attributed title
+  /// Display a custom SwiftUI `View` instead of the title or attributed title
   /// Note that the passed closure will only be called once.
   /// Any views inside a menu item can use the `menuItemIsHighlighted`
   /// environment value to alter its appearance when selected.
@@ -85,7 +85,7 @@ extension AnyMenuItem {
   }
 #endif
 
-  /// Dissplay a custom NSView instead of the title or attributed title
+  /// Dissplay a custom `NSView` instead of the title or attributed title
   public func view(_ view: NSView) -> Self {
     set(\.view, to: view)
   }

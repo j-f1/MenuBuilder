@@ -7,6 +7,7 @@
 
 import Cocoa
 
+/// A container that increases the `indentationLevel` of its content by one.
 public struct IndentGroup {
     fileprivate let children: () -> [NSMenuItem?]
 

@@ -1,6 +1,6 @@
 import Cocoa
 
-/// A separator item. No configuration is available.
+/// A separator item.
 public struct SeparatorItem {
     public init() {}
 }

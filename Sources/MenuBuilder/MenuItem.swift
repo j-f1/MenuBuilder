@@ -15,12 +15,12 @@ public struct MenuItem: AnyMenuItem {
         self.modifiers = modifiers
     }
 
-    /// Create a menu item with the given title
+    /// Creates a menu item with the given title.
     public init(_ title: String) {
         modifiers = [{ item in item.title = title }]
     }
 
-    /// Create a menu item with the given attributed title
+    /// Creates a menu item with the given attributed title.
     public init(_ title: NSAttributedString) {
         modifiers = [{ item in
             item.title = title.string
@@ -37,6 +37,7 @@ public struct MenuItem: AnyMenuItem {
         }]
     }
 
+    /// Creates a menu item with a submenu containing the provided children.
     public init(_ title: String, @MenuBuilder children: @escaping () -> [NSMenuItem?]) {
         modifiers = [{ item in
             item.title = title
