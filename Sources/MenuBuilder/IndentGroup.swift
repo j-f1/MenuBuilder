@@ -8,6 +8,15 @@
 import Cocoa
 
 /// A container that increases the `indentationLevel` of its content by one.
+///
+/// ## Example
+/// ```swift
+/// MenuItem("Connected Interfaces")
+/// IndentGroup {
+///     MenuItem("Wi-Fi")
+///     MenuItem("Bluetooth")
+/// }
+/// ```
 public struct IndentGroup {
     fileprivate let children: () -> [NSMenuItem?]
 

@@ -1,13 +1,14 @@
 import Cocoa
 
 /// A standard menu item.
+///
+/// See ``AnyMenuItem`` for a listing of supported modifiers.
 public struct MenuItem: AnyMenuItem {
     public typealias Modifier = (NSMenuItem) -> ()
     /// An array of functions that configure the menu item instance
     /// These may be called to update an existing menu item.
     fileprivate let modifiers: [Modifier]
 
-    /// Calls the provided closure on the `NSMenuItem`, allowing you to apply arbitrary changes.
     public func apply(_ modifier: @escaping Modifier) -> Self {
         Self(modifiers: modifiers + [modifier])
     }

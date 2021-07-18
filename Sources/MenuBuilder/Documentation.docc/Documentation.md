@@ -34,6 +34,22 @@ menu.replaceItems {
 }
 ```
 
+## Installing Menu Items
+
+DocC does not currently support documentation for extensions of system APIs, so here is the interface of `MenuBuilder`’s extension to `NSMenu`:
+
+```swift
+extension NSMenu {
+    /// Create a new menu with the given items.
+    init(@MenuBuilder _ items: () -> [NSMenuItem])
+
+    /// Remove all items in the menu and replace them
+    /// with the provided list of menu items.
+    func replaceItems(@MenuBuilder with items: () -> [NSMenuItem])
+}
+
+```
+
 ## Topics
 
 ### Creating Menu Items

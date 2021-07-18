@@ -1,6 +1,6 @@
 import Cocoa
 
-/// A function builder type that produces an array of `NSMenuItem`s
+/// A function builder type that produces an array of `NSMenuItem`s.
 @resultBuilder
 public struct MenuBuilder {
     public static func buildBlock(_ block: [NSMenuItem]...) -> [NSMenuItem] {
@@ -32,12 +32,13 @@ public struct MenuBuilder {
 }
 
 extension NSMenu {
-    /// Create a new menu with the given items
+    /// Create a new menu with the given items.
     public convenience init(@MenuBuilder _ items: () -> [NSMenuItem]) {
         self.init()
         self.replaceItems(with: items)
     }
 
+    /// Remove all items in the menu and replace them with the provided list of menu items.
     public func replaceItems(@MenuBuilder with items: () -> [NSMenuItem]) {
         self.items = items()
     }
