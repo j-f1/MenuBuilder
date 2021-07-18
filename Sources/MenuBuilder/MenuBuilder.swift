@@ -32,6 +32,12 @@ public struct MenuBuilder {
 }
 
 extension NSMenu {
+    /// Create a new menu with the given title and items.
+    public convenience init(title: String, @MenuBuilder _ items: () -> [NSMenuItem]) {
+        self.init(title: title)
+        self.replaceItems(with: items)
+    }
+
     /// Create a new menu with the given items.
     public convenience init(@MenuBuilder _ items: () -> [NSMenuItem]) {
         self.init()
