@@ -28,6 +28,15 @@ public struct MenuItem: AnyMenuItem {
         }]
     }
 
+    /// Creates a menu item with the given attributed title.
+    @available(macOS 12, *)
+    public init(_ title: AttributedString) {
+        modifiers = [{ item in
+            item.title = title.description
+            item.attributedTitle = NSAttributedString(title)
+        }]
+    }
+
     public init(_ title: String, @MenuBuilder children: @escaping () -> [NSMenuItem?]) {
         modifiers = [{ item in
             item.title = title
