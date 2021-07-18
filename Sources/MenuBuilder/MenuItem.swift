@@ -39,12 +39,16 @@ public struct MenuItem: AnyMenuItem {
     }
 
     /// Creates a menu item with a submenu containing the provided children.
-    public init(_ title: String, @MenuBuilder children: @escaping () -> [NSMenuItem?]) {
-        modifiers = [{ item in
-            item.title = title
-            item.submenu = NSMenu(title: title)
-            item.submenu!.items = children().compactMap { $0 }
-        }]
+    ///
+    /// > Important: This initializer is deprecated.
+    /// > Instead, use ``AnyMenuItem/submenu(_:)`` to specify the submenu after initialization:
+    /// >
+    /// > ```swift
+    /// > MenuItem(title).submenu { ... }
+    /// > ```
+    @available(*, deprecated, message: "Use .submenu(_:) instead")
+    public init(_ title: String, @MenuBuilder children: @escaping () -> [NSMenuItem]) {
+        self = MenuItem(title).submenu(children)
     }
 }
 

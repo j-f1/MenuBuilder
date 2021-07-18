@@ -24,10 +24,11 @@ class ViewController: NSViewController {
                     MyMenuItemView()
                 }
             SeparatorItem()
-            MenuItem("About") {
-                MenuItem("Version 1.2.3")
-                MenuItem("Copyright 2021")
-            }
+            MenuItem("About")
+                .submenu {
+                    MenuItem("Version 1.2.3")
+                    MenuItem("Copyright 2021")
+                }
             MenuItem("Quit")
                 .shortcut("q")
                 .onSelect { NSApp.terminate(nil) }

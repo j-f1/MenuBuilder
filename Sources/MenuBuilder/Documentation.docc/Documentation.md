@@ -55,7 +55,6 @@ extension NSMenu {
 ### Creating Menu Items
 
 - ``MenuItem``
-- ``MenuItem/init(_:children:)``
 - ``CustomMenuItem``
 - ``AnyMenuItem``
 - ``SeparatorItem``

@@ -67,6 +67,20 @@ extension AnyMenuItem {
         set(\.isEnabled, to: !disabled)
     }
 
+    /// Sets the submenu for the given menu item using a menu builder.
+    ///
+    /// ## Example
+    /// ```swift
+    /// MenuItem("New")
+    ///     .submenu {
+    ///     }
+    /// ```
+    public func submenu(@MenuBuilder _ items: @escaping () -> [NSMenuItem]) -> Self {
+        apply {
+            $0.submenu = NSMenu(title: $0.title, items)
+        }
+    }
+
     /// Set the tooltip displayed when hovering over the menu item.
     ///
     /// ## Example
@@ -88,17 +102,17 @@ extension AnyMenuItem {
     ///
     /// ## Example
     /// ```swift
-    /// MenuItem("Show") {
-    ///     for filter in model.filters {
-    ///         MenuItem(filter.name)
-    ///           .onSelect { filter.isEnabled.toggle() }
-    ///           .checked(filter.isEnabled)
+    /// MenuItem("Show")
+    ///     .submenu {
+    ///         for filter in model.filters {
+    ///             MenuItem(filter.name)
+    ///               .onSelect { filter.isEnabled.toggle() }
+    ///               .checked(filter.isEnabled)
+    ///         }
     ///     }
-    /// }.state(
-    ///     model.allFiltersEnabled
+    ///     .state(model.allFiltersEnabled
     ///         ? .on
-    ///         : model.allFiltersDisabled ? .off : .mixed
-    /// )
+    ///         : model.allFiltersDisabled ? .off : .mixed)
     /// ```
     public func state(_ state: NSControl.StateValue) -> Self {
         set(\.state, to: state)
