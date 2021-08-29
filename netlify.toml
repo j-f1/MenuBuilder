@@ -34,5 +34,5 @@ status = 302
 to = '/tutorials/'
 
 [build]
-command = 'cp style.css MenuBuilder.doccarchive/'
+command = './build.sh'
 publish = 'MenuBuilder.doccarchive/'
