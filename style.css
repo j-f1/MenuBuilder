@@ -1,4 +1,6 @@
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css);
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap');
 
 :root {
   --typography-html-font: 17px var(--sans-serif);
@@ -12,23 +14,36 @@
   }
 }
 
-body, .title, .color-scheme-toggle, .eyebrow {
+/* titles */
+.title, h2, h3, h4, h5, h6, .abstract, .eyebrow, .title, .summary-list-item a {
+  font-family: Overpass, var(--sans-serif) !important;
+}
+/* prose */
+body, .caption, .nodocumentation, .platforms, .declaration-diff-version, .content:not(.abstract) {
+  font-family: Overpass, var(--sans-serif) !important;
+}
+/* ui */
+.nav-menu, .nav-title, .color-scheme-toggle, .label, .button-cta, .filename, .tabnav-link, .badge, a {
   font-family: var(--sans-serif) !important;
 }
 
-code {
+.eyebrow + h1.title, code, .code-number {
   font-family: var(--mono) !important;
+}
+code {
   font-size: 0.95em;
 }
 
+
 .title {
-  font-weight: 600 !important;
+  font-weight: 800 !important;
 }
 
 #declaration h2,
 .content h2, .content h3, .content h4, .content h5, .content h6,
-.badge.badge-deprecated, h3.title {
-  font-weight: 500 !important;
+.badge.badge-deprecated, h3.title,
+.eyebrow {
+  font-weight: 700 !important;
 }
 
 .token-attribute, .token-keyword {
@@ -41,6 +56,9 @@ code {
 
 .summary-list-item .icon-holder {
   display: none !important;
+}
+.summary-list-item a {
+  font-weight: 600;
 }
 .summary-list-item a:hover {
   text-decoration: none;
@@ -100,5 +118,3 @@ body {
     --color-fill: #1a1a1a;
   }
 }
-
-
