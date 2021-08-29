@@ -1,0 +1,37 @@
+# based on https://github.com/JosephDuffy/DocC-Netlify/blob/305916aa/netlify.toml
+
+[[redirects]]
+from = '/documentation/*'
+status = 200
+to = '/index.html'
+
+[[redirects]]
+from = '/tutorials/*'
+status = 200
+to = '/index.html'
+
+[[redirects]]
+from = '/data/documentation.json'
+status = 200
+to = '/data/documentation/menubuilder.json'
+
+[[redirects]]
+force = true
+from = '/'
+status = 302
+to = '/documentation/'
+
+[[redirects]]
+force = true
+from = '/documentation'
+status = 302
+to = '/documentation/'
+
+[[redirects]]
+force = true
+from = '/tutorials'
+status = 302
+to = '/tutorials/'
+
+[build]
+publish = 'MenuBuilder.doccarchive/'
