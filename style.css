@@ -1,0 +1,21 @@
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css);
+
+:root {
+  --typography-html-font: 17px var(--sans-serif);
+  --sans-serif: system-ui, Helvetica Neue, Helvetica, Arial, sans-serif;
+  --mono: Fira Code, Menlo, monospace;
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    --mono: Fira Code VF, Menlo, monospace;
+  }
+}
+
+body, .title, .color-scheme-toggle {
+  font-family: var(--sans-serif) !important;
+}
+
+code {
+  font-family: var(--mono) !important;
+}
