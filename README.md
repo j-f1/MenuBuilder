@@ -2,7 +2,7 @@
 
 A function builder for `NSMenu`s, similar in spirit to SwiftUI’s `ViewBuilder`.
 
-Usage example (see demo for more details):
+Usage example (see demo or [read the documentation](https://menubuilder.jedfox.com) for more details):
 
 ```swift
 let menu = NSMenu {
