@@ -12,6 +12,11 @@ import SwiftUI
 class ViewController: NSViewController {
 
     var demoMenu: NSMenu!
+    
+    @objc
+    private func printSenderTag(_ sender: NSMenuItem) {
+        print("tag:", sender.tag)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +29,11 @@ class ViewController: NSViewController {
                     MyMenuItemView()
                 }
             SeparatorItem()
+            MenuItem("Show About Panel")
+                .action(#selector(NSApplication.orderFrontStandardAboutPanel(_:)))
+            MenuItem("Item with tag")
+                .tag(42)
+                .action(#selector(printSenderTag(_:)))
             MenuItem("About")
                 .submenu {
                     MenuItem("Version 1.2.3")
