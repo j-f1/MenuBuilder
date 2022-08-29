@@ -33,7 +33,7 @@ class ViewController: NSViewController {
                 .action(#selector(NSApplication.orderFrontStandardAboutPanel(_:)))
             MenuItem("Item with tag")
                 .tag(42)
-                .action(#selector(printSenderTag(_:)))
+                .onSelect(target: self, action: #selector(printSenderTag(_:)))
             MenuItem("About")
                 .submenu {
                     MenuItem("Version 1.2.3")
