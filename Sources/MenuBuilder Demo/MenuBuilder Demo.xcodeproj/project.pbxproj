@@ -15,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		852C57CF28BD251C006411C8 /* MenuBuilder */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MenuBuilder; path = ../..; sourceTree = "<group>"; };
 		85F1D0BA259E6149001831C0 /* MenuBuilder Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MenuBuilder Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85F1D0BD259E6149001831C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85F1D0BF259E6149001831C0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +43,7 @@
 				85F1D0BC259E6149001831C0 /* MenuBuilder Demo */,
 				85F1D0BB259E6149001831C0 /* Products */,
 				85F1D0D0259E6249001831C0 /* Frameworks */,
+				852C57CF28BD251C006411C8 /* MenuBuilder */,
 			);
 			sourceTree = "<group>";
 		};
