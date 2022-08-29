@@ -31,6 +31,33 @@ extension AnyMenuItem {
         }
     }
 
+    /// Set the action of the menu item
+    ///
+    /// ## Example
+    /// ```swift
+    /// MenuItem("Show About Panel")
+    ///     .action(#selector(orderFrontStandardAboutPanel:))
+    /// ```
+    public func action(_ action: Selector) -> Self {
+        apply {
+            $0.action = action
+        }
+    }
+
+    /// Set the tag of the menu item
+    ///
+    /// ## Example
+    /// ```swift
+    /// MenuItem("Find…")
+    ///     .action(#selector(NSTextView.performFindPanelAction(_:)))
+    ///     .tag(Int(NSFindPanelAction.showFindPanel.rawValue))
+    /// ```
+    public func tag(_ tag: Int) -> Self {
+        apply {
+            $0.tag = tag
+        }
+    }
+
     /// Sets the keyboard shortcut/key equivalent.
     ///
     /// ## Example

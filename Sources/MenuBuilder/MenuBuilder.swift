@@ -46,7 +46,10 @@ extension NSMenu {
 
     /// Remove all items in the menu and replace them with the provided list of menu items.
     public func replaceItems(@MenuBuilder with items: () -> [NSMenuItem]) {
-        self.items = items()
+        self.removeAllItems()
+        for item in items() {
+            self.addItem(item)
+        }
         self.update()
     }
 }
