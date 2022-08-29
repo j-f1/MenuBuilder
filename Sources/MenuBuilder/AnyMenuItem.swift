@@ -127,7 +127,7 @@ extension AnyMenuItem {
     ///         .toolTip(file.name)
     /// }
     /// ```
-    public func toolTip(_ toolTip: String) -> Self {
+    public func toolTip(_ toolTip: String?) -> Self {
         set(\.toolTip, to: toolTip)
     }
 
