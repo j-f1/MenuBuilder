@@ -31,41 +31,57 @@ class MenuItemView<ContentView: View>: NSView {
 
     init(showsHighlight: Bool, _ view: ContentView) {
         effectView = NSVisualEffectView()
-        effectView.state = .active
-        effectView.material = .selection
-        effectView.isEmphasized = true
-        effectView.blendingMode = .behindWindow
-
         contentView = view
         hostView = NSHostingView(rootView: AnyView(contentView))
 
         self.showsHighlight = showsHighlight
 
-        super.init(frame: CGRect(origin: .zero, size: hostView.intrinsicContentSize))
+        super.init(frame: CGRect(origin: .zero, size: hostView.fittingSize))
         addSubview(effectView)
         addSubview(hostView)
+        
+        setUpEffectView()
+        setUpConstraints()
     }
 
     required init?(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func viewDidMoveToWindow() {
-        super.viewDidMoveToWindow()
-        if window != nil {
-            frame = NSRect(
-                origin: frame.origin,
-                size: CGSize(width: enclosingMenuItem!.menu!.size.width, height: frame.height)
-            )
-            effectView.frame = frame
-            hostView.frame = frame
-        }
-    }
+    
+    
     override func draw(_ dirtyRect: NSRect) {
         let highlighted = enclosingMenuItem!.isHighlighted
         effectView.isHidden = !showsHighlight || !highlighted
         hostView.rootView = AnyView(contentView.environment(\.menuItemIsHighlighted, highlighted))
         super.draw(dirtyRect)
     }
+    
+    private func setUpEffectView() {
+        effectView.state = .active
+        effectView.material = .selection
+        effectView.isEmphasized = true
+        effectView.blendingMode = .behindWindow
+        effectView.wantsLayer = true
+        effectView.layer?.cornerRadius = 4
+        effectView.layer?.cornerCurve = .continuous
+    }
+    
+    private func setUpConstraints() {
+        effectView.translatesAutoresizingMaskIntoConstraints = false
+        hostView.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        let margin: CGFloat = 5
+        effectView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        effectView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin).isActive = true
+        effectView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        effectView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin).isActive = true
+        
+        hostView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        hostView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        hostView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        hostView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
 }
 #endif
+
