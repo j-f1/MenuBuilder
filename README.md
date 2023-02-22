@@ -33,6 +33,25 @@ Note that there is no way to preserve the existing menu items, although it shoul
 
 ## Changelog
 
+### v2.1.0
+
+Check out the new API docs! https://menubuilder.jedfox.com
+
+New Features:
+
+* Add `action` and `tag` modifiers (Thanks @patr0nus!)
+* Update the SwiftUI custom view wrapper to use Auto Layout (Thanks @rurza!)
+* Add support for menu item titles using `AttributedString` on macOS 12+
+* Add a convenience initializer to `NSMenu` that takes a `title` and an `@MenuBuilder` closure
+* Deprecate the `MenuItem(_:children:)` initializer in favor of `MenuItem(title).submenu { ... children ... }`
+* Add an `onSelect(target:action:)` convenience method to set the `target` and `action` at the same time.
+
+Bugfixes:
+
+* Update the SwiftUI custom view wrapper’s selection indicator to match the menu styling of macOS Big Sur and later (Thanks @rurza!)
+* Make the parameter to `toolTip` optional (Thanks @mlch911!)
+* `update()` is now called on an `NSMenu` when you use the `replaceItems` API
+
 ### v2.0.0
 * (**BREAKING**) Migrate to `@resultBuilder` (Xcode 12.5+ is now required)
 * Apply modifiers to shortcuts
