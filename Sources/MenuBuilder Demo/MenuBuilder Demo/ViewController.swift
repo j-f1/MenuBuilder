@@ -24,6 +24,13 @@ class ViewController: NSViewController {
         demoMenu = NSMenu {
             MenuItem("Click me")
                 .onSelect { print("clicked!") }
+            MenuItem("Item with a highlightable view")
+                .view(showsHighlight: true) {
+                    Text("Custom view!")
+                }
+                .onSelect {
+                    print("clicky!")
+                }
             MenuItem("Item with a view")
                 .view(showsHighlight: false) {
                     MyMenuItemView()
