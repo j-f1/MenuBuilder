@@ -17,8 +17,8 @@ public struct MenuItem: AnyMenuItem {
     }
 
     /// Creates a menu item with the given title (localized key).
-    public init(_ title: String) {
-        modifiers = [ { item in item.title = NSLocalizedString(title, comment: "") }]
+    public init(_ title: String, bundle: Bundle = .main) {
+        modifiers = [ { item in item.title = bundle.localizedString(forKey: title, value: nil, table: nil) }]
     }
 
     /// Creates a menu item with the given verbatim title.
