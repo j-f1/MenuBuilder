@@ -33,6 +33,13 @@ Note that there is no way to preserve the existing menu items, although it shoul
 
 ## Changelog
 
+### v3.0.0
+
+* (Potentially **BREAKING**) When your app has a deployment target of macOS 12 or newer, passing a string literal to `MenuItem("Title Here")` will now create a `String.LocalizationValue`, which will make it easier to localize your app if you use MenuBuilder.
+  * If your app is not localized (or your deployment target is macOS 11 or older), you shouldn’t notice any changes.
+  * If your app is localized, review your UI that uses MenuBuilder and make sure that you’re not getting any unexpected translations. You can migrate to `MenuItem(verbatim: "Title Here")` if you want to opt out of the new behavior.
+  * Thanks to @ShikiSuen for getting this started!
+
 ### v2.1.0
 
 Check out the new API docs! https://menubuilder.jedfox.com
