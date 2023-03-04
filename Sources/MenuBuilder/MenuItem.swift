@@ -39,6 +39,11 @@ public struct MenuItem: AnyMenuItem {
         modifiers = [{ item in item.title = title }]
     }
 
+    /// Creates a menu item with the given (non-localized) title.
+    public init(verbatim title: String) {
+        modifiers = [{ item in item.title = title }]
+    }
+
     /// Creates a menu item with the given localized string key used as the title.
     public init(localized title: String, table: String? = nil, bundle: Bundle = .main) {
         modifiers = [{ item in item.title = bundle.localizedString(forKey: title, value: nil, table: table) }]
