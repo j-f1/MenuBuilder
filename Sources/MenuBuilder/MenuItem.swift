@@ -16,14 +16,14 @@ public struct MenuItem: AnyMenuItem {
         self.modifiers = modifiers
     }
 
-    /// Creates a menu item with the given title (localized key).
-    public init(_ title: String, bundle: Bundle = .main) {
-        modifiers = [ { item in item.title = bundle.localizedString(forKey: title, value: nil, table: nil) }]
+    /// Creates a menu item with the given title.
+    public init(_ title: String) {
+        modifiers = [ { item in item.title = title }]
     }
 
-    /// Creates a menu item with the given verbatim title.
-    public init(verbatim title: String) {
-        modifiers = [ { item in item.title = title }]
+    /// Creates a menu item with the given localized string key used as the title.
+    public init(localized title: String, table: String? = nil, bundle: Bundle = .main) {
+        modifiers = [ { item in item.title = bundle.localizedString(forKey: title, value: nil, table: table) }]
     }
 
     /// Creates a menu item with the given attributed title.
