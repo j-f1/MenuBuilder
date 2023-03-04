@@ -17,13 +17,31 @@ public struct MenuItem: AnyMenuItem {
     }
 
     /// Creates a menu item with the given title.
+    ///
+    /// When targeting macOS 12 or later, `MenuBuilder("some title")` will use
+    /// this initializer for automatic localization support.
+    @available(macOS 12, *)
+    public init(
+        _ s: String.LocalizationValue,
+        table: String? = nil,
+        bundle: Bundle? = nil,
+        locale: Locale = .current,
+        comment: StaticString? = nil
+    ) {
+        modifiers = [{ item in
+            item.title = String(localized: s, table: table, bundle: bundle, locale: locale, comment: comment)
+        }]
+    }
+
+    /// Creates a menu item with the given (non-localized) title.
+    @_disfavoredOverload
     public init(_ title: String) {
-        modifiers = [ { item in item.title = title }]
+        modifiers = [{ item in item.title = title }]
     }
 
     /// Creates a menu item with the given localized string key used as the title.
     public init(localized title: String, table: String? = nil, bundle: Bundle = .main) {
-        modifiers = [ { item in item.title = bundle.localizedString(forKey: title, value: nil, table: table) }]
+        modifiers = [{ item in item.title = bundle.localizedString(forKey: title, value: nil, table: table) }]
     }
 
     /// Creates a menu item with the given attributed title.
@@ -36,6 +54,7 @@ public struct MenuItem: AnyMenuItem {
 
     /// Creates a menu item with the given attributed title.
     @available(macOS 12, *)
+    @_disfavoredOverload
     public init(_ title: AttributedString) {
         modifiers = [{ item in
             item.title = title.description
