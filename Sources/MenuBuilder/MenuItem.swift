@@ -16,9 +16,14 @@ public struct MenuItem: AnyMenuItem {
         self.modifiers = modifiers
     }
 
-    /// Creates a menu item with the given title.
+    /// Creates a menu item with the given title (localized key).
     public init(_ title: String) {
-        modifiers = [{ item in item.title = title }]
+        modifiers = [ { item in item.title = NSLocalizedString(title, comment: "") }]
+    }
+
+    /// Creates a menu item with the given verbatim title.
+    public init(verbatim title: String) {
+        modifiers = [ { item in item.title = title }]
     }
 
     /// Creates a menu item with the given attributed title.
